@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
         if (books.length === 0) {
             return res.status(204).json([])
         }
-        res(books)
+        res.json(books)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { title, author, genre, publication_date } = req?.body
-    if (!title || !author || !genre || publication_date) {
+    if (!title || !author || !genre || !publication_date) {
         return res.status(400).json({
             message: 'Los campos título, autor, género y fecha son obligatorios'
         })
@@ -79,3 +79,5 @@ router.post('/', async (req, res) => {
     }
 
 })
+
+module.exports = router
