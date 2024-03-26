@@ -80,4 +80,27 @@ router.post('/', async (req, res) => {
 
 })
 
+router.get('/:id', getBook, async (req, res) => {
+    res.json(res.book);
+})
+
+router.put('/:id', getBook, async (req, res) => {
+    try {
+        const book = res.book
+        book.title = req.body.title || book.title;
+        book.author = req.body.author || book.author;
+        book.genre = req.body.genre || book.genre;
+        book.publication_date = req.body.publication_date || book.publication_date;
+        
+        const updatedBook = await book.save()
+        res.json(updatedBook)
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+
+    }
+})
+
+
 module.exports = router
